@@ -4,7 +4,7 @@
 As part of this assignment, we were expected to write an interpreter for the ARITH language with any additional features.
 Programming Language used:Python3
 Executable Created using pyinstaller
-Files excepted as part of the assignment submission are:
+Files accepted as part of the assignment submission are:
 - README.txt
 - MakeFile
 - arith.py
