@@ -9,6 +9,7 @@ Files accepted as part of the assignment submission are:
 - README.txt
 - MakeFile
 - while.py
+- while
 - TestingOutput.pdf
 - extras.bat (Individual tests)
 - gitlog.txt
