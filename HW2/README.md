@@ -2,9 +2,13 @@
 # Homework 2:WHILE
 
 As part of this assignment, we were expected to write an interpreter for the WHILE language with any additional features.
-Programming Language used:Python3
-Executable Created using pyinstaller
+
+Programming Language used:Python3.
+
+Executable Created using pyinstaller.
+
 External library used:lark parser used to create the AST.
+
 Files accepted as part of the assignment submission are:
 - README.txt
 - MakeFile
