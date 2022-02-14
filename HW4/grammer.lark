@@ -1,0 +1,75 @@
+
+?start:statement _NEWLINE
+
+?statement: simple 
+           | complex
+
+?complex: ( if | while | small_step)  (";" statement)*
+    
+?if: "if" ["("] condition [")"] "then" codeblock ["else" codeblock]
+           
+?while: "while" ["("] condition [")"] "do" "{" codeblock "}"  -> complexwhile
+         
+          | "while" ["("] condition [")"] "do" codeblock [";"]  -> simplewhile  
+
+          | "{" while "}"
+          
+ 
+?codeblock: statement 
+           | _NEWLINE _INDENT statement+ _DEDENT
+?small_step: "{" assign (";" assign)+ "}"
+
+
+?simple: stmt (";" statement)*
+
+?stmt:(exp | skip)
+
+?exp: exp2 | assign
+
+?assign: variable ":=" exp -> assignment
+        | variable ":=" condition "?" condition ":" condition -> ternary
+
+?exp2: condition
+
+?condition: or ("if" or "else" condition)?
+?or: and ("∨" and)* 
+?and: negation ("∧" negation)* 
+?negation: "¬" negation -> not
+          | comparison
+?comparison:exp1 (_conditionop exp1)* 
+
+?exp1: higheroperations
+     | exp1 "+" exp1 -> add
+     | exp1 "-" exp1 -> sub
+     
+?higheroperations: atom
+     | higheroperations "*" atom -> mul
+     | higheroperations "/" atom -> div
+     | higheroperations "%" atom -> mod
+
+?skip: "skip"
+
+!_conditionop: "<"|">"|"="|">="|"<="|"<>"|"!="
+                |"in"|"not" "in"|"is"|"is" "not"
+
+!_sign: "+" | "-"
+
+?atom: variable
+     | number
+     | _sign atom
+     | string+
+     | "(" condition ")"
+     | "true" -> true_cond
+     | "false" -> false_cond 
+
+variable:VARNAME
+number:NUMBER
+string: STRING
+STRING : /[ubf]?r?("(?!"").*?(?<!\\)(\\\\)*?"|'(?!'').*?(?<!\\)(\\\\)*?')/i
+_NEWLINE: /\r?\n[\t ]*/
+VARNAME: /[a-zA-Z_]\w*/
+
+%import common.SIGNED_NUMBER -> NUMBER
+%import common.WS_INLINE
+%declare _INDENT _DEDENT
+%ignore WS_INLINE
