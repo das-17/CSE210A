@@ -1,5 +1,5 @@
 ## CSE210A-Programming Languages
-# Homework 2:WHILE-SS
+# Homework 4:WHILE-SS
 
 As part of this assignment, we were expected to write an interpreter for the WHILE language with small step commands and other additional features.
 
